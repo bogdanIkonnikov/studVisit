@@ -3,6 +3,7 @@ package krefature.studvisit.service;
 import krefature.studvisit.dto.student.CreateStudentRequest;
 import krefature.studvisit.dto.student.StudentResponse;
 import krefature.studvisit.dto.student.EditStudentRequest;
+import krefature.studvisit.entity.Group;
 import krefature.studvisit.entity.Student;
 import krefature.studvisit.mapper.StudentMapper;
 import krefature.studvisit.repository.GroupRepository;
@@ -27,7 +28,7 @@ public class StudentService {
         List<Student> students = studentRepository.getAllByGroup(groupId);
         List<StudentResponse> studentResponses = new ArrayList<>();
         for (Student student : students) {
-            StudentResponse response = new StudentResponse(student.getId(), student.getFirstName(), student.getMiddleName(), student.getLastName(), student.getGroup().getName());
+            StudentResponse response = studentMapper.toResponse(student);
             studentResponses.add(response);
         }
         return studentResponses;
@@ -46,10 +47,10 @@ public class StudentService {
 
     public StudentResponse updateStudent(EditStudentRequest request) {
         Student student = studentRepository.getById(request.getId());
-        student.setStatus(request.getStatus());
-        student.setUpdated_at(LocalDate.now().toString());
+        Group group = groupRepository.getById(request.getGroupId());
+        studentMapper.updateEntity(request, student, group);
         studentRepository.update(student);
-        return new StudentResponse(student.getId(), student.getFirstName(), student.getMiddleName(), student.getLastName(), student.getGroup().getName());
+        return studentMapper.toResponse(student);
     }
 
     public void deleteStudent(Long studentId) {

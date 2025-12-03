@@ -12,4 +12,5 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
     Student getById(Long id);
     Student add(Student student);
     Student update(Student student);
+    void deleteById(Long id);
 }
