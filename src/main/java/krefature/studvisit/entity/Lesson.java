@@ -3,6 +3,8 @@ package krefature.studvisit.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Data
@@ -26,8 +28,11 @@ public class Lesson {
     @JoinColumn(name = "group_id")
     private Group group;
 
+    @CreationTimestamp
     @Column(nullable = false)
     private String created_at;
+
+    @UpdateTimestamp
     @Column(nullable = false)
     private String updated_at;
 }

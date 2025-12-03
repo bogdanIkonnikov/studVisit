@@ -4,41 +4,38 @@ import krefature.studvisit.dto.group.GroupRequest;
 import krefature.studvisit.dto.group.GroupResponse;
 import krefature.studvisit.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/groups")
 public class GroupController {
     @Autowired
     private GroupService groupService;
 
-    @PostMapping("/getStudentGroups")
+    @PostMapping("/getAll")
     public List<GroupResponse> getStudentGroups() {
         return groupService.getAllGroups();
     }
 
-    @PostMapping("/getStudentGroupById")
-    public GroupResponse getStudentGroupById(@RequestBody Long Id) {
+    @PostMapping("/{id}/get")
+    public GroupResponse getStudentGroupById(@PathVariable Long Id) {
         return groupService.getGroupById(Id);
     }
 
-    @PostMapping("/addStudentGroup")
+    @PostMapping("/add")
     public GroupResponse addStudentGroup(@RequestBody String groupName) {
         return groupService.addGroup(groupName);
     }
-    //ResponseEntity
-    @PostMapping("/editStudentGroup")
-    public GroupResponse editStudentGroup(@RequestBody GroupRequest groupRequest) {
-        return groupService.editGroup(groupRequest);
+
+    @PostMapping("/{id}/edit")
+    public GroupResponse editStudentGroup(@RequestBody GroupRequest groupRequest, @PathVariable Long id) {
+        return groupService.editGroup(groupRequest, id);
     }
 
-    @PostMapping("/deleteStudentGroup")
-    public void deleteStudentGroup(@RequestBody Long Id) {
-        groupService.deleteGroup(Id);
+    @PostMapping("/{id}/delete")
+    public void deleteStudentGroup(@PathVariable Long id) {
+        groupService.deleteGroup(id);
     }
 }

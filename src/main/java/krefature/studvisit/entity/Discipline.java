@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import krefature.studvisit.enums.DisciplineName;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Data
@@ -17,8 +19,11 @@ public class Discipline {
     @Column(unique=true)
     private DisciplineName name;
 
+    @CreationTimestamp
     @Column(nullable = false)
     private String created_at;
+
+    @UpdateTimestamp
     @Column(nullable = false)
     private String updated_at;
 

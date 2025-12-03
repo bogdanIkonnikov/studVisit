@@ -3,6 +3,8 @@ package krefature.studvisit.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Data
@@ -23,8 +25,11 @@ public class Teacher {
     @Column(nullable = false, name = "last_name")
     private String lastName;
 
+    @CreationTimestamp
     @Column(nullable = false)
     private String created_at;
+
+    @UpdateTimestamp
     @Column(nullable = false)
     private String updated_at;
 }

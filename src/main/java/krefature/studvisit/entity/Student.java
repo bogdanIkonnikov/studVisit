@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import krefature.studvisit.enums.Status;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -40,8 +42,11 @@ public class Student {
     @ManyToMany(mappedBy = "students")
     private List<LessonVisit> lessonVisit = new ArrayList<>();
 
+    @CreationTimestamp
     @Column(nullable = false)
     private String created_at;
+
+    @UpdateTimestamp
     @Column(nullable = false)
     private String updated_at;
 

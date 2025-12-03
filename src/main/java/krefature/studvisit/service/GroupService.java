@@ -43,8 +43,8 @@ public class GroupService {
         return groupMapper.toResponse(savedGroup);
     }
 
-    public GroupResponse editGroup(GroupRequest request) {
-        Group group = groupRepository.findById(request.getGroupId()).get();
+    public GroupResponse editGroup(GroupRequest request, Long groupId) {
+        Group group = groupRepository.findById(groupId).get();
         groupMapper.updateEntity(group, request);
         Group savedGroup = groupRepository.save(group);
         return groupMapper.toResponse(savedGroup);
