@@ -22,7 +22,4 @@ public class Discipline {
     @Column(nullable = false)
     private String updated_at;
 
-    public Discipline(DisciplineName name) {
-        this.name = name;
-    }
 }

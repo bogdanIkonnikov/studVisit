@@ -18,10 +18,6 @@ public class Group {
     @Column(nullable = false)
     private String name;
 
-    public Group(String name) {
-        this.name = name;
-    }
-
     @Column(nullable = false)
     private String created_at;
     @Column(nullable = false)

@@ -21,13 +21,13 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "first_name")
     private String firstName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "middle_name")
     private String middleName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "last_name")
     private String lastName;
 
     @Column(nullable = false)
@@ -45,11 +45,4 @@ public class Student {
     @Column(nullable = false)
     private String updated_at;
 
-    public Student(String firstName, String middleName, String lastName, Status status, Group group) {
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.status = status;
-        this.group = group;
-    }
 }

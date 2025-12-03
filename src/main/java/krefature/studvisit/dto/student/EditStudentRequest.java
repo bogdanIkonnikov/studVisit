@@ -1,9 +1,9 @@
 package krefature.studvisit.dto.student;
 
 import krefature.studvisit.enums.Status;
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
+@Data
 public class EditStudentRequest {
     Long Id;
     String firstName;

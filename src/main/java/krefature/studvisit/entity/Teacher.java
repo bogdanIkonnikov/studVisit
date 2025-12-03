@@ -14,23 +14,17 @@ public class Teacher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "first_name")
     private String firstName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "middle_name")
     private String middleName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "last_name")
     private String lastName;
 
     @Column(nullable = false)
     private String created_at;
     @Column(nullable = false)
     private String updated_at;
-
-    public Teacher(String firstName, String middleName, String lastName) {
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-    }
 }

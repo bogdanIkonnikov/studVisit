@@ -30,11 +30,4 @@ public class Lesson {
     private String created_at;
     @Column(nullable = false)
     private String updated_at;
-
-    public Lesson(String date, int time, Teacher teacher, Group group) {
-        this.date = date;
-        this.time = time;
-        this.teacher = teacher;
-        this.group = group;
-    }
 }

@@ -4,6 +4,7 @@ import krefature.studvisit.dto.student.CreateStudentRequest;
 import krefature.studvisit.dto.student.StudentResponse;
 import krefature.studvisit.dto.student.EditStudentRequest;
 import krefature.studvisit.entity.Student;
+import krefature.studvisit.mapper.StudentMapper;
 import krefature.studvisit.repository.GroupRepository;
 import krefature.studvisit.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ public class StudentService {
     private StudentRepository studentRepository;
     @Autowired
     private GroupRepository groupRepository;
+    @Autowired
+    private StudentMapper studentMapper;
 
     public List<StudentResponse> getStudentsByGroup(Long groupId) {
         List<Student> students = studentRepository.getAllByGroup(groupId);
@@ -32,12 +35,13 @@ public class StudentService {
 
     public StudentResponse getStudentById(Long studentId) {
         Student student = studentRepository.getById(studentId);
-        return new StudentResponse(student.getId(), student.getFirstName(), student.getMiddleName(), student.getLastName(), student.getGroup().getName());
+        return studentMapper.toResponse(student);
     }
 
-    public Long addStudent(CreateStudentRequest request) {
-        Student student = new Student(request.getFirstName(), request.getMiddleName(), request.getLastName(), request.getStatus() , groupRepository.findById(request.getGroupId()).get());
-        return studentRepository.add(student).getId();
+    public StudentResponse addStudent(CreateStudentRequest request) {
+        Student student = studentMapper.toEntity(request, groupRepository.findById(request.getGroupId()).orElse(null));
+        Student savedStudent = studentRepository.save(student);
+        return studentMapper.toResponse(savedStudent);
     }
 
     public StudentResponse updateStudent(EditStudentRequest request) {

@@ -1,9 +1,9 @@
 package krefature.studvisit.dto.student;
 
 import krefature.studvisit.enums.Status;
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
+@Data
 public class CreateStudentRequest {
     private String firstName;
     private String lastName;
