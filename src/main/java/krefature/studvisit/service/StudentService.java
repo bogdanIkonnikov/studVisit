@@ -11,7 +11,6 @@ import krefature.studvisit.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +24,7 @@ public class StudentService {
     private StudentMapper studentMapper;
 
     public List<StudentResponse> getStudentsByGroup(Long groupId) {
-        List<Student> students = studentRepository.getAllByGroup(groupId);
+        List<Student> students = studentRepository.getStudentsByGroupId(groupId);
         List<StudentResponse> studentResponses = new ArrayList<>();
         for (Student student : students) {
             StudentResponse response = studentMapper.toResponse(student);
@@ -49,7 +48,7 @@ public class StudentService {
         Student student = studentRepository.getById(request.getId());
         Group group = groupRepository.getById(request.getGroupId());
         studentMapper.updateEntity(request, student, group);
-        studentRepository.update(student);
+        studentRepository.save(student);
         return studentMapper.toResponse(student);
     }
 

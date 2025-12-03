@@ -1,8 +1,9 @@
 package krefature.studvisit.service;
 
-import krefature.studvisit.dto.group.EditGroupRequest;
+import krefature.studvisit.dto.group.GroupRequest;
 import krefature.studvisit.dto.group.GroupResponse;
 import krefature.studvisit.entity.Group;
+import krefature.studvisit.mapper.GroupMapper;
 import krefature.studvisit.repository.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,8 @@ import java.util.List;
 public class GroupService {
     @Autowired
     private GroupRepository groupRepository;
+    @Autowired
+    private GroupMapper groupMapper;
 
     public List<GroupResponse> getAllGroups() {
         List<Group> groups = groupRepository.findAll();
@@ -35,23 +38,16 @@ public class GroupService {
     }
 
     public GroupResponse addGroup(String groupName) {
-        Group group = new Group();
-        group.setName(groupName);
-        groupRepository.save(group);
-        GroupResponse groupResponse = new GroupResponse();
-        groupResponse.setGroupName(group.getName());
-        groupResponse.setId(group.getId());
-        return groupResponse;
+        Group group = groupMapper.toEntity(groupName);
+        Group savedGroup = groupRepository.save(group);
+        return groupMapper.toResponse(savedGroup);
     }
 
-    public GroupResponse editGroup(EditGroupRequest request) {
+    public GroupResponse editGroup(GroupRequest request) {
         Group group = groupRepository.findById(request.getGroupId()).get();
-        group.setName(request.getGroupName());
-        groupRepository.save(group);
-        GroupResponse groupResponse = new GroupResponse();
-        groupResponse.setGroupName(group.getName());
-        groupResponse.setId(group.getId());
-        return groupResponse;
+        groupMapper.updateEntity(group, request);
+        Group savedGroup = groupRepository.save(group);
+        return groupMapper.toResponse(savedGroup);
     }
 
     public void deleteGroup(Long id) {

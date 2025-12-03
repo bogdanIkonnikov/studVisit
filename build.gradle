@@ -28,6 +28,3 @@ dependencies {
     implementation 'com.h2database:h2:2.1.210'
 }
 
-tasks.named('test') {
-    useJUnitPlatform()
-}

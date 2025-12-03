@@ -8,9 +8,7 @@ import java.util.List;
 
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Integer> {
-    List<Student> getAllByGroup(Long groupId);
+    List<Student> getStudentsByGroupId(Long groupId);
     Student getById(Long id);
-    Student add(Student student);
-    Student update(Student student);
     void deleteById(Long id);
 }

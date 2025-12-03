@@ -9,6 +9,4 @@ import java.util.List;
 
 @Repository
 public interface LessonVisitRepository extends JpaRepository<LessonVisit, Long> {
-    boolean addStudents(List<Long> studentsId);
-    boolean deleteStudents(List<Long> studentsId);
 }

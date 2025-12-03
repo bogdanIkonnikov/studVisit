@@ -1,6 +1,6 @@
 package krefature.studvisit.controller;
 
-import krefature.studvisit.dto.group.EditGroupRequest;
+import krefature.studvisit.dto.group.GroupRequest;
 import krefature.studvisit.dto.group.GroupResponse;
 import krefature.studvisit.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +33,8 @@ public class GroupController {
     }
     //ResponseEntity
     @PostMapping("/editStudentGroup")
-    public GroupResponse editStudentGroup(@RequestBody EditGroupRequest editGroupRequest) {
-        return groupService.editGroup(editGroupRequest);
+    public GroupResponse editStudentGroup(@RequestBody GroupRequest groupRequest) {
+        return groupService.editGroup(groupRequest);
     }
 
     @PostMapping("/deleteStudentGroup")

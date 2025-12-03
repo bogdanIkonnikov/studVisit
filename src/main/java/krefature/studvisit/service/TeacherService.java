@@ -42,7 +42,7 @@ public class TeacherService {
     public TeacherResponse editTeacher(Long Id, TeacherRequest teacherRequest) {
         Teacher t = teacherRepo.findById(Id).orElse(null);
         teacherMapper.updateEntity(t, teacherRequest);
-        Teacher updatedTeacher = teacherRepo.update(t);
+        Teacher updatedTeacher = teacherRepo.save(t);
         return teacherMapper.toResponse(updatedTeacher);
     }
 

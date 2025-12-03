@@ -3,7 +3,7 @@ package krefature.studvisit.dto.group;
 import lombok.Data;
 
 @Data
-public class EditGroupRequest {
+public class GroupRequest {
     private String groupName;
     private Long groupId;
 }
