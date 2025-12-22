@@ -21,6 +21,7 @@ public class StudentController {
 
     @GetMapping("/getStudentById/{id}")
     public StudentResponse getStudentById(@PathVariable Long id) {
+        StudentResponse res = new StudentResponse();
         return mapper.toResponse(studentService.getStudentById(id));
     }
 

@@ -1,11 +1,18 @@
 package krefature.studvisit.DAO.mapper;
 
 import krefature.studvisit.repository.entity.Student;
+import krefature.studvisit.repository.repository.GroupRepository;
 import krefature.studvisit.service.model.StudentModel;
 import org.springframework.stereotype.Component;
 
 @Component
 public class StudentModelMapper {
+    private final GroupRepository groupRepository;
+
+    public StudentModelMapper(GroupRepository groupRepository) {
+        this.groupRepository = groupRepository;
+    }
+
     public StudentModel toModel(Student student){
         StudentModel studentModel = new StudentModel();
         studentModel.setId(student.getId());
@@ -25,6 +32,7 @@ public class StudentModelMapper {
         student.setLastName(studentModel.getLastName());
         student.setMiddleName(studentModel.getMiddleName());
         student.setStatus(studentModel.getStatus());
+        student.setGroup(groupRepository.findById(studentModel.getGroupId()).get());
         return student;
     }
 }
