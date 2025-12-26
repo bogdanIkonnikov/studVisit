@@ -1,6 +1,7 @@
 package krefature.studvisit.repository.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -16,9 +17,11 @@ public class Teacher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     @Column(nullable = false, name = "first_name")
     private String firstName;
 
+    @NotBlank
     @Column(nullable = false, name = "middle_name")
     private String middleName;
 

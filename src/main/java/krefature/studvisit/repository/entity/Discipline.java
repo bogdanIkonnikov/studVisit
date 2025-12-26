@@ -1,6 +1,7 @@
 package krefature.studvisit.repository.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import krefature.studvisit.common.enums.DisciplineName;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,7 @@ public class Discipline {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @Column(unique=true)
     private DisciplineName name;
 

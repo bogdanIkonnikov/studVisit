@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 public class LessonResponse {
     private String date;
     private int time;
-    private String teacherFIO;
+    private Long teacherId;
 }

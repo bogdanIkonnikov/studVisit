@@ -25,4 +25,9 @@ public class GroupMapper {
         model.setName(groupRequest.getGroupName());
         return model;
     }
+    public GroupModel toModel(GroupRequest groupRequest) {
+        GroupModel model = new GroupModel();
+        model.setName(groupRequest.getGroupName());
+        return model;
+    }
 }

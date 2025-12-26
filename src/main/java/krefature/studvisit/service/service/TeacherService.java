@@ -1,6 +1,7 @@
 package krefature.studvisit.service.service;
 
 import krefature.studvisit.DAO.repository.TeacherModelRepository;
+import krefature.studvisit.common.exceptions.NotFoundException;
 import krefature.studvisit.service.model.TeacherModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,9 @@ public class TeacherService {
     }
 
     public TeacherModel getTeacherById(Long id) {
-        return repository.findById(id);
+        TeacherModel t = repository.findById(id);
+        if (t == null) throw new NotFoundException("Преподаватель", id);
+        return t;
     }
 
     public TeacherModel addTeacher(TeacherModel model) {
@@ -25,15 +28,13 @@ public class TeacherService {
     }
 
     public TeacherModel editTeacher(TeacherModel model) {
-        TeacherModel m = repository.findById(model.getId());
-        m.setFirstName(model.getFirstName());
-        m.setLastName(model.getLastName());
-        m.setMiddleName(model.getMiddleName());
-        return repository.save(m);
+        if (repository.findById(model.getId()) == null) throw new NotFoundException("Преподаватель", model.getId());
+        return repository.save(model);
     }
 
     public void deleteTeacher(Long id) {
         TeacherModel t = repository.findById(id);
+        if (t == null) throw new NotFoundException("Преподаватель", id);
         repository.delete(t);
     }
 }

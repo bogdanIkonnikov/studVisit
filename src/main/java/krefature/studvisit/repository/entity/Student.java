@@ -1,6 +1,8 @@
 package krefature.studvisit.repository.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import krefature.studvisit.common.enums.Status;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,15 +22,18 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     @Column(nullable = false, name = "first_name")
     private String firstName;
 
+    @NotBlank
     @Column(nullable = false, name = "middle_name")
     private String middleName;
 
     @Column(nullable = false, name = "last_name")
     private String lastName;
 
+    @NotNull
     @Column(nullable = false)
     private Status status;
 

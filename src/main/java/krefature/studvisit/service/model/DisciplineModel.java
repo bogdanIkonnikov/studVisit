@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 @Data
 @NoArgsConstructor
 public class DisciplineModel {
+
     private Long id;
 
     private DisciplineName name;
