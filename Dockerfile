@@ -9,7 +9,7 @@ RUN gradle dependencies --no-daemon || true
 
 COPY src ./src
 
-RUN gradle build -x test --no-daemon
+RUN gradle build --no-daemon
 
 FROM eclipse-temurin:17-jre-jammy
 
