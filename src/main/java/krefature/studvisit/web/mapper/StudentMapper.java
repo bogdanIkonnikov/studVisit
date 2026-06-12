@@ -1,9 +1,11 @@
 package krefature.studvisit.web.mapper;
 
-import krefature.studvisit.service.model.StudentModel;
+import krefature.studvisit.domain.model.StudentModel;
+import krefature.studvisit.infrastructure.repository.GroupRepository;
 import krefature.studvisit.web.dto.student.CreateStudentRequest;
 import krefature.studvisit.web.dto.student.EditStudentRequest;
 import krefature.studvisit.web.dto.student.StudentResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,6 +13,9 @@ import java.util.stream.Collectors;
 
 @Component
 public class StudentMapper {
+    @Autowired
+    private GroupRepository groupRepository;
+
     public StudentResponse toResponse(StudentModel model) {
         StudentResponse sr = new StudentResponse();
         sr.setFirstName(model.getFirstName());
@@ -19,6 +24,13 @@ public class StudentMapper {
         sr.setId(model.getId());
         sr.setGroupId(model.getGroupId());
         sr.setStatus(model.getStatus());
+        
+        if (model.getGroupId() != null) {
+            var group = groupRepository.findById(model.getGroupId()).orElse(null);
+            if (group != null) {
+                sr.setGroupName(group.getName());
+            }
+        }
         return sr;
     }
 

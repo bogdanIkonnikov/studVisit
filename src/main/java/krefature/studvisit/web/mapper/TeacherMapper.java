@@ -1,9 +1,9 @@
 package krefature.studvisit.web.mapper;
 
-import krefature.studvisit.service.model.TeacherModel;
+import krefature.studvisit.domain.model.TeacherModel;
 import krefature.studvisit.web.dto.teacher.TeacherRequest;
 import krefature.studvisit.web.dto.teacher.TeacherResponse;
-import krefature.studvisit.repository.entity.Teacher;
+import krefature.studvisit.infrastructure.entity.Teacher;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -32,6 +32,7 @@ public class TeacherMapper {
     }
     public TeacherResponse toResponse(TeacherModel teacher) {
         TeacherResponse teacherResponse = new TeacherResponse();
+        teacherResponse.setId(teacher.getId());
         teacherResponse.setTeacherFIO(teacher.getFirstName() + " " + teacher.getMiddleName() + " " + teacher.getLastName());
         return teacherResponse;
     }

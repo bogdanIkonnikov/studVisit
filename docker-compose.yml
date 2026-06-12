@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  postgres-db:
+    image: postgres:15-alpine
+    container_name: studvisit-postgres
+    environment:
+      POSTGRES_DB: studvisit_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - studvisit-network
+
+
+  studvisit-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: studvisit-api
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    depends_on:
+      - postgres-db
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8080/api-docs >/dev/null 2>&1 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    restart: unless-stopped
+    networks:
+      - studvisit-network
+
+
+  studvisit-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: studvisit-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      studvisit-app:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - studvisit-network
+
+volumes:
+  pgdata:
+
+networks:
+  studvisit-network:
+    driver: bridge

@@ -1,6 +1,6 @@
 package krefature.studvisit.web.mapper;
 
-import krefature.studvisit.service.model.GroupModel;
+import krefature.studvisit.domain.model.GroupModel;
 import krefature.studvisit.web.dto.group.GroupRequest;
 import krefature.studvisit.web.dto.group.GroupResponse;
 import org.springframework.stereotype.Component;

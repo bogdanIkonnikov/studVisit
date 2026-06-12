@@ -1,10 +1,11 @@
 package krefature.studvisit.DAO.repositoryImpl;
 
 import krefature.studvisit.DAO.mapper.LessonModelMapper;
-import krefature.studvisit.DAO.repository.LessonModelRepository;
-import krefature.studvisit.repository.repository.LessonRepository;
-import krefature.studvisit.repository.repository.TeacherRepository;
-import krefature.studvisit.service.model.LessonModel;
+import krefature.studvisit.domain.repository.LessonModelRepository;
+import krefature.studvisit.infrastructure.repository.LessonRepository;
+import krefature.studvisit.domain.model.LessonModel;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -41,12 +42,44 @@ public class LessonModelRepoImpl implements LessonModelRepository {
     }
 
     @Override
+    public void deleteById(Long id) {
+        repository.deleteById(id);
+    }
+
+    @Override
     public LessonModel save(LessonModel model) {
         return mapper.toModel(repository.save(mapper.toEntity(model)));
     }
 
     @Override
     public LessonModel findById(Long id) {
-        return mapper.toModel(repository.findById(id).get());
+        return mapper.toModel(repository.findById(id).orElse(null));
+    }
+
+    @Override
+    public boolean existsById(Long id) {
+        return repository.existsById(id);
+    }
+
+    @Override
+    public boolean existsByTeacherId(Long teacherId) {
+        return repository.existsByTeacherId(teacherId);
+    }
+
+    @Override
+    public boolean existsByDisciplineId(Long disciplineId) {
+        return repository.existsByDisciplineId(disciplineId);
+    }
+
+    @Override
+    public Page<LessonModel> getPageByTeacherIdAndDateBetween(Long teacherId, String dateAfter, String dateBefore, Pageable pageable) {
+        return repository.findAllByTeacherIdAndDateBetween(teacherId, dateAfter, dateBefore, pageable)
+                .map(mapper::toModel);
+    }
+
+    @Override
+    public Page<LessonModel> getPageByGroupIdAndDateBetween(Long groupId, String dateAfter, String dateBefore, Pageable pageable) {
+        return repository.findAllByGroupIdAndDateBetween(groupId, dateAfter, dateBefore, pageable)
+                .map(mapper::toModel);
     }
 }

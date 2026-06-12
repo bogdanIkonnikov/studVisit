@@ -1,10 +1,10 @@
 package krefature.studvisit.DAO.repositoryImpl;
 
 import krefature.studvisit.DAO.mapper.GroupModelMapper;
-import krefature.studvisit.DAO.repository.GroupModelRepository;
-import krefature.studvisit.repository.entity.Group;
-import krefature.studvisit.repository.repository.GroupRepository;
-import krefature.studvisit.service.model.GroupModel;
+import krefature.studvisit.domain.repository.GroupModelRepository;
+import krefature.studvisit.infrastructure.entity.Group;
+import krefature.studvisit.infrastructure.repository.GroupRepository;
+import krefature.studvisit.domain.model.GroupModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -26,7 +26,7 @@ public class GroupModelRepoImpl implements GroupModelRepository {
 
     @Override
     public GroupModel findById(Long id) {
-        return mapper.toModel(repository.findById(id).get());
+        return mapper.toModel(repository.findById(id).orElse(null));
     }
 
     @Override
@@ -37,5 +37,10 @@ public class GroupModelRepoImpl implements GroupModelRepository {
     @Override
     public void deleteById(Long id) {
         repository.deleteById(id);
+    }
+
+    @Override
+    public boolean existsById(Long id) {
+        return repository.existsById(id);
     }
 }

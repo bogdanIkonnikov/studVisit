@@ -1,12 +1,13 @@
 package krefature.studvisit.DAO.mapper;
 
-import krefature.studvisit.repository.entity.Teacher;
-import krefature.studvisit.service.model.TeacherModel;
+import krefature.studvisit.infrastructure.entity.Teacher;
+import krefature.studvisit.domain.model.TeacherModel;
 import org.springframework.stereotype.Component;
 
 @Component
 public class TeacherModelMapper {
     public TeacherModel toModel(Teacher teacher){
+        if (teacher == null) return null;
         TeacherModel model = new TeacherModel();
         model.setFirstName(teacher.getFirstName());
         model.setLastName(teacher.getLastName());
@@ -17,6 +18,7 @@ public class TeacherModelMapper {
         return model;
     }
     public Teacher toEntity(TeacherModel model){
+        if (model == null) return null;
         Teacher teacher = new Teacher();
         teacher.setFirstName(model.getFirstName());
         teacher.setLastName(model.getLastName());

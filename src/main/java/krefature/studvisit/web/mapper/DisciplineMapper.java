@@ -1,6 +1,6 @@
 package krefature.studvisit.web.mapper;
 
-import krefature.studvisit.service.model.DisciplineModel;
+import krefature.studvisit.domain.model.DisciplineModel;
 import krefature.studvisit.web.dto.discipline.DisciplineRequest;
 import krefature.studvisit.web.dto.discipline.DisciplineResponse;
 import org.springframework.stereotype.Component;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 public class DisciplineMapper {
     public DisciplineResponse toResponse(DisciplineModel model){
         DisciplineResponse response = new DisciplineResponse();
+        response.setId(model.getId());
         response.setName(model.getName().toString());
         return response;
     }

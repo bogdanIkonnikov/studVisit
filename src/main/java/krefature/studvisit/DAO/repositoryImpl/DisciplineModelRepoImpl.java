@@ -1,9 +1,9 @@
 package krefature.studvisit.DAO.repositoryImpl;
 
 import krefature.studvisit.DAO.mapper.DisciplineModelMapper;
-import krefature.studvisit.DAO.repository.DisciplineModelRepository;
-import krefature.studvisit.repository.repository.DisciplineRepository;
-import krefature.studvisit.service.model.DisciplineModel;
+import krefature.studvisit.domain.repository.DisciplineModelRepository;
+import krefature.studvisit.infrastructure.repository.DisciplineRepository;
+import krefature.studvisit.domain.model.DisciplineModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -36,5 +36,10 @@ public class DisciplineModelRepoImpl implements DisciplineModelRepository {
     @Override
     public void deleteById(Long id) {
         repository.deleteById(id);
+    }
+
+    @Override
+    public boolean existsById(Long id) {
+        return repository.existsById(id);
     }
 }
